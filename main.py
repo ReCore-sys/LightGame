@@ -1,16 +1,28 @@
-# This is a sample Python script.
+# Example file showing a circle moving on screen
+import pygame
+from pygame.locals import DOUBLEBUF
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+from data_types.gamestate import GameState
 
+flags = DOUBLEBUF
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+# pygame setup
+pygame.init()
+screen = pygame.display.set_mode((1280, 720), flags, 16)
+clock = pygame.time.Clock()
+running = True
+dt = 0
+screen.set_alpha(None)
 
+gamestate = GameState(screen, clock)
+from game.gamestates.main.main import preload
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+gamestate = preload(gamestate)
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+while gamestate.close is False:
+    from game.gamestates.main.main import update
+
+    gamestate.pressed = pygame.key.get_pressed()
+    gamestate = update(gamestate)
+
+pygame.quit()
