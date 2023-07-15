@@ -1,8 +1,10 @@
 # Example file showing a circle moving on screen
 import pygame
 from pygame.locals import DOUBLEBUF
+import game.gamestates.main.map as map
 
-from data_types.gamestate import GameState
+from data_types.gamestate import GameState, MapNode
+from game.gamestates.main import main, debug
 
 flags = DOUBLEBUF
 
@@ -14,15 +16,15 @@ running = True
 dt = 0
 screen.set_alpha(None)
 
-gamestate = GameState(screen, clock)
-from game.gamestates.main.main import preload
+game_state = GameState(screen, clock)
 
-gamestate = preload(gamestate)
-
-while gamestate.close is False:
+debug.preload(game_state)
+main.preload(game_state)
+map.preload(game_state)
+print(screen.get_size())
+while game_state.close is False:
     from game.gamestates.main.main import update
 
-    gamestate.pressed = pygame.key.get_pressed()
-    gamestate = update(gamestate)
+    update(game_state)
 
 pygame.quit()
