@@ -1,1 +1,6 @@
+llvmlite==0.40.1
+numba==0.57.1
+numpy==1.24.4
+psutil==5.9.5
 pygame==2.5.0
+shapely==2.0.1

@@ -56,11 +56,11 @@ def update(game_state: GameState):
             game_state.close = True
 
     sleep_start = time.time_ns()
-    game_state.dt = game_state.clock.tick()
-    elapsed = (time.time_ns() - frame_start)
-    if elapsed < (1 / game_state.config.framerate) * 1e9:
-        accurate_delay((1 / game_state.config.framerate) * 1000 - elapsed / 1e6)
-        # time.sleep(((1 / framerate) * 1e9 - elapsed) / 1e9)
+    game_state.dt = game_state.clock.tick(game_state.config.framerate)
+    # elapsed = (time.time_ns() - frame_start)
+    # if elapsed < (1 / game_state.config.framerate) * 1e9:
+    #     accurate_delay((1 / game_state.config.framerate) * 1000 - elapsed / 1e6)
+    #     # time.sleep(((1 / framerate) * 1e9 - elapsed) / 1e9)
     sleep_end = time.time_ns()
     game_state.debug_info.sleep_time = sleep_end - sleep_start
     game_state.debug_info.frame_time = time.time_ns() - frame_start
